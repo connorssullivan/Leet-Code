@@ -26,12 +26,14 @@ For structured guidance, visit the **NeetCode roadmap website**, which provides 
 
 ## 🔑 How to Join
 
-1. **Request Access**
-
-   - Email or message the repository maintainer to be added as a collaborator.
-
-2. **Clone the Repository**
-
+1. **Clone the Repository**
+   
    ```bash
    git clone https://github.com/connorssullivan/Leet-Code.git
    cd Leet-Code
+
+2. **Request Access**
+
+   - Email or message the repository maintainer to be added as a collaborator.
+
+
