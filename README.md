@@ -31,9 +31,17 @@ For structured guidance, visit the **NeetCode roadmap website**, which provides 
    ```bash
    git clone https://github.com/connorssullivan/Leet-Code.git
    cd Leet-Code
+   git checkout -b your-branch-name
+   git add .
+   git commit -m "Some Message"
+   git push -u origin your-branch-name
+
 
 2. **Request Access**
 
    - Email or message the repository maintainer to be added as a collaborator.
+  
+3. See Others Progress
+   - See others progress by clicking branch button in top left
 
 
