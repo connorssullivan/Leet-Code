@@ -1,66 +1,35 @@
 #include <iostream>
 #include <vector>
 #include <algorithm> 
+#include <unordered_set>
 
 class Solution {
 
 public:
     int longestConsecutive(std::vector<int>& nums) {
-
         if (nums.size() == 0)
             return 0;
 
-        if (nums.size() == 1)
-            return 1;
+        std::unordered_set<int> nums_set {nums.begin(), nums.end()};
 
-        std::sort(nums.begin(), nums.end());
-
-        std::cout << "Sorted Nums: ";
-        for (auto num : nums)
-            std::cout << num << ", ";
-        std::cout << "\n";
-
-        int longest_streak {0};
-        int curr_streak {0};
-        bool duplicate {false};
-        for (int i=0; i < nums.size() - 1; i++)
+        int longest_streak {1};
+        for (auto num : nums) 
         {
-            if (!duplicate)
-                curr_streak++;
+            int streak {1};
+            int curr {num};
+
+            while (nums_set.find(curr + 1) != nums_set.end())
+            {
+                streak++;
+                curr++;
+            }
+
+            longest_streak = std::max(streak, longest_streak);
             
-            duplicate = false;
-
-
-            if (curr_streak > longest_streak)
-            {
-                longest_streak = curr_streak;
-                // 1
-                
-            }
-
-            if (nums[i+1] == nums[i])
-            {
-                duplicate = true;
-            }
-
-            if (nums[i+1] != nums[i] + 1 && !duplicate)
-            {
-                std::cout << "Stoping streak at " << nums[i] << "->" << nums[i+1] << ". Current StreaK: " << curr_streak << "\n";
-                curr_streak = 0;
-            }
-
-        }
-
-        // One more check for last number
-        int last_index = nums.size() -1;
-        if (nums[last_index] == nums[last_index-1] + 1)
-        {
-            curr_streak += 1;
-            if (longest_streak < curr_streak)
-                longest_streak = curr_streak;
         }
 
         return longest_streak;
+        
     }
 };
 
