@@ -5,65 +5,53 @@
 class Solution {
 public:
     std::vector<std::vector<int>> threeSum(std::vector<int>& nums) {
+        std::vector<std::vector<int>> sol;
 
-        std::vector<std::vector<int>> sol {};
-        std::set<std::vector<int>> unique_set {};
+        std::sort(nums.begin(), nums.end());
 
+        auto dfs = [&](auto&& self, int index) {
+            if (index >= nums.size() - 2) 
+                return;
+            while (index > 0 && nums[index] == nums[index-1])
+                index++;
+            
 
-        int n { static_cast<int> (nums.size())};
-
-
-        for (int i=0; i < n -2; i++)
-        {
-           
-            for (int j=i+1; j< n -1; j++)
+            int l {index+1};
+            int r = nums.size()-1;
+            
+            while (l < r)
             {
-                
-                for (int k=j+1; k < n ; k++)
+                int total = nums[l] + nums[r] + nums[index];
+                if (total == 0)
                 {
+                    std::vector<int> curr {nums[l], nums[r], nums[index]};
+                    sol.push_back(curr);
+
+                    while (l < r && nums[l] == nums[l + 1]) 
+                        l++;
                     
-                    if (nums[i] + nums[j] + nums[k] == 0)
-                    {
-                        std::vector<int> temp {nums[i], nums[j], nums[k]};
-                        std::sort(temp.begin(), temp.end());
-                        unique_set.insert(temp);
-                    }
+                    while (l < r && nums[r] == nums[r - 1]) 
+                        r--;
+                    l++;
+                    r--;
+                }
+
+                else if (total < 0)
+                {
+                    l++;
+                }
+
+                else 
+                {
+                    r--;
                 }
             }
-        }
+            self(self, index+1);
+        };
+        dfs(dfs, 0);
 
-        sol.assign(unique_set.begin(), unique_set.end());
         return sol;
     }
 
-    void printSol(const std::vector<std::vector<int>> arr) {
-        std::cout << "[";
-        for (auto v : arr)
-        {
-            std::cout << "[";
-            for (auto n : v)
-            {
-                std::cout << n << ",";
-            }
-            std::cout << "]";
-        }
-        std::cout << "]";
-    }
+    
 };
-
-
-int main()
-{
-    Solution sol {};
-
-    std::vector<int> someNums {{-1,0,1}};
-
-    std::vector<std::vector<int>> ans {sol.threeSum(someNums)};
-
-    sol.printSol(ans);
-
-    return 0;
-
-
-
-}
